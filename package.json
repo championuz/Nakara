@@ -17,7 +17,6 @@
     "dotenv": "^16.0.0",
     "email-verification": "^0.4.6",
     "express": "^4.17.2",
-    "googleapis": "^95.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.0",
     "morgan": "^1.10.0",
