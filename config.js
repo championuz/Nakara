@@ -15,7 +15,7 @@ sgMail.setApiKey(sendGridKey)
 module.exports.sendVerificationEmail = (email, name, verificationCode, redirectUrl) => {
   const message = {
     from: {
-      name: 'NakaraX@no-reply',
+      name: 'NakaraX@noreply',
       email: verifiedEmail
     },
     to: email,
@@ -35,8 +35,7 @@ module.exports.sendVerificationEmail = (email, name, verificationCode, redirectU
   return sgMail.send(message)
 }
 
-module.exports.sendBuyCryptoEmail = (name, currency, amount, walletAddress) => {
-
+module.exports.sendBuyCryptoAdminEmail = ({name, currency, amount, walletAddress}) => {
   const message = {
     from: {
       name: 'NakaraX',
@@ -46,20 +45,56 @@ module.exports.sendBuyCryptoEmail = (name, currency, amount, walletAddress) => {
     subject: 'Buy Crypto Request',
     text: `
       Name: ${name}\n
+      currency: ${currency}
       Amount: ${amount}\n
       Wallet Address: ${walletAddress}\n
     `,
     html: `
-      <p> <strong>Name:</strong> ${name}</p><br/>
-      <p><strong>Currency:</strong> ${currency}</p><br/>
-      <p><strong>Amount:</strong> ${amount}</p><br/>
-      <p><strong>Wallet address:</strong> ${walletAddress}</p><br/>
+      <p>
+        <strong>Name:</strong> ${name}<br/>
+        <strong>Currency:</strong> ${currency}<br/>
+        <strong>Amount:</strong> ${amount}<br/>
+        <strong>Wallet address:</strong> ${walletAddress}
+      </p>
     `
   }
   return sgMail.send(message)
 }
 
-module.exports.sendSellCryptoEmail = (name, amount, walletAddress) => {
+module.exports.sendBuyCryptoUserEmail = ({name, email, currency, amount, walletAddress}) => {
+  const message = {
+    from: {
+      name: 'NakaraX@noreply',
+      email: verifiedEmail
+    },
+    to: email,
+    subject: 'Buy Crypto Request',
+    text: `Your request is processing\n
+      Name: ${name}\n
+      Amount: ${amount}\n
+      Wallet Address: ${walletAddress}\n
+    `,
+    html: `
+      <div>
+        <h3>Your request is processing</h3>
+        <h4>Here are your details:</h4>
+        <p>
+          <strong>Name:</strong> ${name}<br/>
+          <strong>Currency:</strong> ${currency}<br/>
+          <strong>Amount:</strong> ${amount}<br/>
+          <strong>Wallet address:</strong> ${walletAddress}
+        </p>
+      <div>
+    `
+  }
+  return sgMail.send(message)
+}
 
+module.exports.sendSellCryptoAdminEmail = ({name, amount, walletAddress}) => {
 
 }
+
+module.exports.sendSellCryptoUserEmail = ({name, amount, walletAddress}) => {
+
+}
+

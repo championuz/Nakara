@@ -1,13 +1,17 @@
 const router = require('express').Router()
 const buyRequest = require('../models/Buy-crypto')
 const {verifyToken} = require('./verifyToken')
-const { sendBuyCryptoEmail } = require('../config')
+const { sendBuyCryptoAdminEmail, sendBuyCryptoUserEmail } = require('../config')
 
 const validateBuyCryptoInfo = (req, res, next) => {
-  const {name, currency, amount, walletAddress, userId} = req.body
+  const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  const {name, email, currency, amount, walletAddress, userId} = req.body
 
   if(!name || typeof name !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid name'})
+  }
+  else if(!email.match(emailValidator)){
+    return res.status(401).json({status: 'error', message: 'Invalid email'})
   }
   else if(!currency || typeof currency !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid currency'})
@@ -28,28 +32,29 @@ const validateBuyCryptoInfo = (req, res, next) => {
 
 // CREATE
 router.post('/', validateBuyCryptoInfo, verifyToken, async(req, res) => {
-  const {name, currency, amount, walletAddress} = req.body
   try{
     await buyRequest.create(req.body)
     try{
-      await sendBuyCryptoEmail(name, currency, amount, walletAddress)
+      await sendBuyCryptoAdminEmail(req.body)
+      await sendBuyCryptoUserEmail(req.body)
+      res.status(200).json({status: 'ok'})
     }catch(err){
-      return res.status(500).json({status: 'error', error:'adminEmailError', message:'Failed to send email to admin'})
+      res.status(500).json({status: 'error', error:'emailSendError', message:'Failed to send email'})
     }
-    res.status(200).json({status: 'ok'})
-  }catch(err){  
+  }catch(err){
     res.status(500).json({status:'error'})
   }
 })
 
-// SEND EMAIL TO ADMIN
-router.post('/send-admin-email', validateBuyCryptoInfo, verifyToken, async(req, res) => {
-  const {name, currency, amount, walletAddress} = req.body
+// SEND EMAIL TO ADMIN AND EMAIL
+router.post('/send-admin&user-email', validateBuyCryptoInfo, verifyToken, async(req, res) => {
   try{
-    await sendBuyCryptoEmail(name, amount, walletAddress)
+    await sendBuyCryptoUserEmail(req.body)
+    console.log('done')
+    await sendBuyCryptoAdminEmail(req.body)
     res.status(200).json({status: 'ok'})
-  }catch(err){  
-    return res.status(500).json({status: 'error', error:'adminEmailError', message:'Failed to send email to admin'})
+  }catch(err){
+    res.status(500).json({status: 'error', error:'emailSendError', message:'Failed to send email'})
   }
 })
 
