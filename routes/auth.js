@@ -117,5 +117,5 @@ router.get('/verify-email', async(req, res) => {
     res.status(500).json({status: 'error', message: 'An error occured while verifing your email'}) 
   }
 })
- 
+
 module.exports = router

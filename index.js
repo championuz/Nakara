@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const path = require('path/posix')
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
+const buyCryptoRoute = require('./routes/buyCrypto')
 
 // local .env path
 const localEnvPath = path.resolve(process.cwd(), '.env.local')
@@ -32,6 +33,7 @@ app.use(express.json())
 app.use(morgan('common'))
 app.use('/api/auth', authRoute)
 app.use('/api/user', userRoute)
+app.use('/api/buyrequest', buyCryptoRoute)
 
 // root route
 app.get('/', (req,res) => res.status(200).json('Welcome to my api'))
