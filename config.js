@@ -76,7 +76,7 @@ module.exports.sendBuyCryptoUserEmail = ({name, email, currency, amount, walletA
     `,
     html: `
       <div>
-        <h3>Your request is processing</h3>
+        <h3>Your request to buy crypto is processing</h3>
         <h4>Here are your details:</h4>
         <p>
           <strong>Name:</strong> ${name}<br/>
@@ -90,11 +90,72 @@ module.exports.sendBuyCryptoUserEmail = ({name, email, currency, amount, walletA
   return sgMail.send(message)
 }
 
-module.exports.sendSellCryptoAdminEmail = ({name, amount, walletAddress}) => {
-
+module.exports.sendSellCryptoAdminEmail = ({name, currency, amount, bankName, accountName, accountNumber, img}) => {
+  const message = {
+    from: {
+      name: 'NakaraX',
+      email: verifiedEmail
+    },
+    to: verifiedEmail,
+    subject: 'Sell Crypto Request',
+    text: `
+      Name: ${name}\n
+      currency: ${currency}
+      Amount: ${amount}\n
+      Bank name: ${bankName}\n
+      Account name: ${accountName}
+      Account number: ${accountNumber}\n
+      Image: ${img}
+    `,
+    html: `
+      <p>
+        <strong>Name:</strong> ${name}<br/>
+        <strong>Currency:</strong> ${currency}<br/>
+        <strong>Amount:</strong> ${amount}<br/>
+        <strong>Bank name:</strong> ${bankName}<br/>
+        <strong>Account name:</strong> ${accountName}<br/>
+        <strong>Account number:</strong> ${accountNumber}<br/>
+        <strong>Image:</strong> ${img}
+      </p>
+    `
+  }
+  return sgMail.send(message)
 }
 
-module.exports.sendSellCryptoUserEmail = ({name, amount, walletAddress}) => {
-
+module.exports.sendSellCryptoUserEmail = ({name, email, currency, amount, bankName, accountName, accountNumber, img}) => {
+  console.log(img)
+  const message = {
+    from: {
+      name: 'NakaraX@noreply',
+      email: verifiedEmail
+    },
+    to: email,
+    subject: 'Sell Crypto Request',
+    text: `Your request to sell crypto processing
+      Name: ${name}\n
+      currency: ${currency}
+      Amount: ${amount}\n
+      Bank name: ${bankName}\n
+      Account name: ${accountName}
+      Account number: ${accountNumber}\n
+      Image: ${img}
+    `,
+    html: `
+      <div>
+        <h3>Your request is processing</h3>
+        <h4>Here are your details:</h4>
+        <p>
+          <strong>Name:</strong> ${name}<br/>
+          <strong>Currency:</strong> ${currency}<br/>
+          <strong>Amount:</strong> ${amount}<br/>
+          <strong>Bank name:</strong> ${bankName}<br/>
+          <strong>Account name:</strong> ${accountName}<br/>
+          <strong>Account number:</strong> ${accountNumber}<br/>
+          <strong>Image:</strong> <a href='${img}'>view image</a>
+        </p>
+      </div>
+    `
+  }
+  return sgMail.send(message)
 }
 
