@@ -20,6 +20,13 @@ const UserSchema = new mongoose.Schema(
       enum: [false, true],
       default: false
     },
+    wallet: {
+      type: Object,
+      default: {
+        availableAmount: 0,
+        lockedAmount: 0
+      }
+    },
     verificationCode: { 
       type: String, 
       unique: true 

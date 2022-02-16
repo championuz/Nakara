@@ -123,7 +123,6 @@ module.exports.sendSellCryptoAdminEmail = ({name, currency, amount, bankName, ac
 }
 
 module.exports.sendSellCryptoUserEmail = ({name, email, currency, amount, bankName, accountName, accountNumber, img}) => {
-  console.log(img)
   const message = {
     from: {
       name: 'NakaraX@noreply',
@@ -142,7 +141,7 @@ module.exports.sendSellCryptoUserEmail = ({name, email, currency, amount, bankNa
     `,
     html: `
       <div>
-        <h3>Your request is processing</h3>
+        <h3>Your request is to sell crypto is processing</h3>
         <h4>Here are your details:</h4>
         <p>
           <strong>Name:</strong> ${name}<br/>
@@ -152,6 +151,60 @@ module.exports.sendSellCryptoUserEmail = ({name, email, currency, amount, bankNa
           <strong>Account name:</strong> ${accountName}<br/>
           <strong>Account number:</strong> ${accountNumber}<br/>
           <strong>Image:</strong> <a href='${img}'>view image</a>
+        </p>
+      </div>
+    `
+  }
+  return sgMail.send(message)
+}
+
+module.exports.addFundsAdminEmail = ({name, cardDetails, amount}) => {
+  const message = {
+    from: {
+      name: 'NakaraX',
+      email: verifiedEmail
+    },
+    to: verifiedEmail,
+    subject: 'Redeem Gift Card Request',
+    text: `
+      Name: ${name}\n
+      Gift card details: ${cardDetails}
+      Amount: ${amount}\n
+    `,
+    html: `
+      <div>
+        <p>
+          <strong>Name:</strong> ${name}<br/>
+          <strong>Gift card details:</strong> ${cardDetails}<br/>
+          <strong>Amount:</strong> ${amount}<br/>
+        </p>
+      </div>
+    `
+  }
+  return sgMail.send(message)
+}
+
+module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}) => {
+  const message = {
+    from: {
+      name: 'NakaraX@noreply',
+      email: verifiedEmail
+    },
+    to: email,
+    subject: 'Redeem Gift Card Request',
+    text: `Your request to redeem your gift card is processing
+      Name: ${name}\n
+      Gift card details: ${cardDetails}
+      Amount: ${amount}\n
+    `,
+    html: `
+      <div>
+        <h3>Your request to redeem your gift is processing</h3>
+        <h4>Here are your details:</h4>
+        <p>
+          <strong>Name:</strong> ${name}<br/>
+          <strong>Gift card details:</strong> ${cardDetails}<br/>
+          <strong>Amount:</strong> ${amount}<br/>
         </p>
       </div>
     `

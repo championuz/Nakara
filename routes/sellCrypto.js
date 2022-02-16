@@ -58,9 +58,8 @@ router.post('/', validateSellCryptoInfo, verifyToken, async(req, res) => {
 // SEND EMAIL TO ADMIN AND EMAIL
 router.post('/send-admin&user-email', validateSellCryptoInfo, verifyToken, async(req, res) => {
   try{
-    await sendSellCryptoUserEmail(req.body)
-    console.log('done')
     await sendSellCryptoAdminEmail(req.body)
+    await sendSellCryptoUserEmail(req.body)
     res.status(200).json({status: 'ok'})
   }catch(err){
     res.status(500).json({status: 'error', error:'emailSendError', message:'Failed to send email'})

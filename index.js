@@ -8,6 +8,7 @@ const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
 const buyCryptoRoute = require('./routes/buyCrypto')
 const sellCryptoRoute = require('./routes/sellCrypto')
+const addFundsRoute = require('./routes/addFunds')
 
 // local .env path
 const localEnvPath = path.resolve(process.cwd(), '.env.local')
@@ -36,6 +37,7 @@ app.use('/api/auth', authRoute)
 app.use('/api/user', userRoute)
 app.use('/api/buyrequest', buyCryptoRoute)
 app.use('/api/sellrequest', sellCryptoRoute)
+app.use('/api/addFundsRequest', addFundsRoute)
 
 // root route
 app.get('/', (req,res) => res.status(200).json('Welcome to my api'))
