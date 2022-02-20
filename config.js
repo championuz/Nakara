@@ -27,7 +27,7 @@ module.exports.sendVerificationEmail = (email, name, verificationCode, redirectU
     `
      <h4>Hello ${name}</h4>
      <p>Follow this link to verify your email address.</p>
-     <a href= "https://nakara.herokuapp.com/api/auth/verify-email?code=${verificationCode}&redirectUrl=${redirectUrl}">verify email</a><br/>
+     https://nakara.herokuapp.com/api/auth/verify-email?code=${verificationCode}&redirectUrl=${redirectUrl}
      <p>if you didn't ask to verify this address, you can ignore this email.</p><br/>
      <p>Thanks.<p>
     `

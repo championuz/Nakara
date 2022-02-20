@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 const UserSchema = new mongoose.Schema(
   {
@@ -27,10 +28,6 @@ const UserSchema = new mongoose.Schema(
         lockedAmount: 0
       }
     },
-    verificationCode: { 
-      type: String, 
-      unique: true 
-    },
     isAdmin: {
       type: Boolean,
       default: false
@@ -42,5 +39,16 @@ const UserSchema = new mongoose.Schema(
   {collection: 'users'},
   {timestamps: true}
 )
+
+UserSchema.methods.generateVerificationToken = function () {
+  const user = this
+  const verificationToken = jwt.sign(
+    { id: user._id },
+    process.env.VERIFICATION_TOKEN_SECRET,
+    { expiresIn: "900s" }
+)
+  return verificationToken
+}
+
 
 module.exports = mongoose.model('User', UserSchema)
