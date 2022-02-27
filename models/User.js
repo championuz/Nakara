@@ -36,8 +36,8 @@ const UserSchema = new mongoose.Schema(
       type: String
     }
   }, 
+  {timestamps: true},
   {collection: 'users'},
-  {timestamps: true}
 )
 
 UserSchema.methods.generateVerificationToken = function () {

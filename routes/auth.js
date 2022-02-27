@@ -43,7 +43,7 @@ router.post('/register', validateCredentials, async (req, res) => {
   }catch(err){
     // duplicate key error
     if(err.code === 11000){
-      return res.status(500).json({status: 'error', message: 'Email already exists'})
+      return res.status(409).json({status: 'error', message: 'Email already exists'})
     }
     // if(err.code === 11000 && err.keyPattern.name){
     //   return res.status(500).json({status: 'error', message: 'name already exists'})

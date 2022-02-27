@@ -21,7 +21,7 @@ dotenv.config({path: localEnvPath}) ? dotenv.config() : dotenv.config({path: loc
 mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('DB connection successfull!'))
 .catch((err) => {
-  console.log('An error occcured while connecting with mongoDB')
+  console.log('An error occcured while connecting with mongoDB', err)
 })
  // process.env.ALLOWED_HOST.slice(1, -1).split(',')
 const corsOption = {
