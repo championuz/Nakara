@@ -46,11 +46,11 @@ router.post('/', validateBuyCryptoInfo, verifyToken, async(req, res) => {
   }
 })
 
+
 // SEND EMAIL TO ADMIN AND EMAIL
 router.post('/send-admin&user-email', validateBuyCryptoInfo, verifyToken, async(req, res) => {
   try{
     await sendBuyCryptoUserEmail(req.body)
-    console.log('done')
     await sendBuyCryptoAdminEmail(req.body)
     res.status(200).json({status: 'ok'})
   }catch(err){

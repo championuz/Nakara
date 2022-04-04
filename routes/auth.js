@@ -29,7 +29,6 @@ const validateCredentials = (req, res, next) => {
 router.post('/register', validateCredentials, async (req, res) => {
   const {name, email, password} = req.body
   const encryptedPass = CryptoJS.AES.encrypt(password, process.env.PASS_ENC_SECT).toString()
-  
 
   try{
     const savedUser = await User.create({
