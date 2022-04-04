@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const sellRequest = require('../models/SellCrypto')
 const {verifyToken} = require('./verifyToken')
-const { sendSellCryptoAdminEmail, sendSellCryptoUserEmail } = require('../config')
+const { sendSellCryptoAdminEmail, sendSellCryptoUserEmail } = require('../services')
 
 const validateSellCryptoInfo = (req, res, next) => {
   const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/

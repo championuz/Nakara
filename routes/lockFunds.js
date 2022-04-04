@@ -1,0 +1,47 @@
+const router = require('express').Router()
+const {verifyToken} = require('./verifyToken')
+const { lockFundsAdminEmail, lockFundsUserEmail} = require('../services')
+const LockFund = require('../models/LockFund')
+
+const validateLockFunds = (req, res, next) => {
+  const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  const {name, email, amount, duration, userId} = req.body
+
+  if(!name || typeof name !== 'string'){
+    return res.status(401).json({status: 'error', message: 'Invalid name'})
+  }
+  else if(!amount || typeof amount !== 'string'){
+    return res.status(401).json({status: 'error', message: 'Invalid amount'})
+  }
+  else if(!email.match(emailValidator)){
+    return res.status(401).json({status: 'error', message: 'Invalid email'})
+  }
+  else if(!duration || typeof duration !== 'string'){
+    return res.status(401).json({status: 'error', message: 'Invalid duration'})
+  }
+  else if(!userId || typeof userId !== 'string'){
+    return res.json({status: 'error', message: 'Invalid userId'})
+  }
+  else{
+    next()
+  }
+}
+
+// CREATE
+router.post('/', validateLockFunds, verifyToken, async(req, res) => {
+
+  try{
+    await LockFund.create(req.body)
+    try{
+      await lockFundsAdminEmail(req.body)
+      await lockFundsUserEmail(req.body)
+      res.status(200).json({status: 'ok'})
+    }catch(err){
+      res.status(500).json({status: 'error', error:'emailSendError', message:'Failed to send email'})
+    }
+  }catch(err){
+    res.status(500).json({status:'error', message:'Failed to send lock funds request'})
+  } 
+})
+
+module.exports = router

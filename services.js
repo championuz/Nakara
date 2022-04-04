@@ -212,3 +212,118 @@ module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}) => {
   return sgMail.send(message)
 }
 
+module.exports.sendIdVerifyAdminEmail = ({name, phoneNumber, idNumber, idType, selfieImage, movImage}) => {
+  const message = {
+    from: {
+      name: 'NakaraX',
+      email: verifiedEmail
+    },
+    to: verifiedEmail,
+    subject: 'New user verification',
+    text: `
+      Name: ${name}\n
+      Phone number ${phoneNumber}
+      ID number ${idNumber}\n
+      ID type ${idType}\n
+      Means of Verification image: ${movImage}\n
+      Selfie image: ${selfieImage}
+    `,
+    html: `
+      <p>
+        <strong>Name:</strong> ${name}<br/>
+        <strong>Phone number</strong> ${phoneNumber}<br/>
+        <strong>ID number</strong> ${idNumber}<br/>
+        <strong>ID type</strong> ${idType}<br/>
+        <strong>Means of Verification image:</strong> ${movImage}<br/>
+        <strong>Selfie image:</strong> ${selfieImage}
+      </p>
+    `
+  }
+  return sgMail.send(message)
+}
+
+module.exports.sendIdVerifyUserEmail = ({name, email, phoneNumber, idNumber, idType, selfieImage, movImage}) => {
+  const message = {
+    from: {
+      name: 'NakaraX@noreply',
+      email: verifiedEmail
+    },
+    to: email,
+    subject: 'New user verification',
+    text: `Your request to sell crypto processing
+      Name: ${name}\n
+      Phone number ${phoneNumber}
+      ID number ${idNumber}\n
+      ID type ${idType}\n
+      Means of Verification image: ${movImage}\n
+      Selfie image: ${selfieImage}
+    `,
+    html: `
+      <div>
+        <h3>Your request is to verify your id is progress</h3>
+        <h4>Here are your details:</h4>
+        <p>
+          <strong>Name:</strong> ${name}<br/>
+          <strong>Phone number</strong> ${phoneNumber}<br/>
+          <strong>ID number</strong> ${idNumber}<br/>
+          <strong>ID type</strong> ${idType}<br/>
+          <strong>Means of Verification image:</strong> ${movImage}<br/>
+          <strong>Selfie image:</strong> ${selfieImage}
+        </p>
+      </div>
+    `
+  }
+  return sgMail.send(message)
+}
+
+module.exports.lockFundsAdminEmail = ({name, amount, duration}) => {
+  const message = {
+    from: {
+      name: 'NakaraX',
+      email: verifiedEmail
+    },
+    to: verifiedEmail,
+    subject: 'Lock funds request',
+    text: `
+      Name: ${name}\n
+      Amount ${amount}\n
+      Duration ${duration}\n
+    `,
+    html: `
+      <p>
+        <strong>Name:</strong> ${name}<br/>
+        <strong>Amount</strong> ${amount}<br/>
+        <strong>Duration</strong> ${duration}<br/>
+      </p>
+    `
+  }
+  return sgMail.send(message)
+}
+
+module.exports.lockFundsUserEmail = ({name, email, amount, duration}) => {
+  const message = {
+    from: {
+      name: 'NakaraX@noreply',
+      email: verifiedEmail
+    },
+    to: email,
+    subject: 'Lock funds',
+    text: `Your request to sell crypto processing
+      Name: ${name}\n
+      Amount ${amount}\n
+      Duration ${duration}\n
+    `,
+    html: `
+      <div>
+        <h3>Your request is to lock your funds is processing</h3>
+        <h4>Here are your details:</h4>
+        <p>
+          <strong>Name:</strong> ${name}<br/>
+          <strong>Amount</strong> ${amount}<br/>
+          <strong>Duration</strong> ${duration}<br/>
+        </p>
+      </div>
+    `
+  }
+  return sgMail.send(message)
+}

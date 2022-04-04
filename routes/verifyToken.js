@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
       next()
     })
   }else{
-    return res.status(401).json('You are not authenticated! '+ authHeader +'')
+    return res.status(401).json({status: 'error', message:'You are not authenticated! '+ authHeader +''})
   }
 }
 
@@ -24,7 +24,7 @@ const verifyTokenAndAuthorization = (req, res, next) => {
     if(req.user.id === req.params.id || req.user.isAdmin){
       next()
     }else{
-      res.status(403).json('Operation not allowed!') 
+      res.status(403).json({status: 'error', message: 'Operation not allowed!'}) 
     }
   })
 }
@@ -35,7 +35,7 @@ const verifyTokenAndAdmin = (req, res, next) => {
     if(req.user.isAdmin){
       next()
     }else{
-      res.status(403).json('Operation not allowed!')
+      res.status(403).json({status: 'error', message: 'Operation not allowed!'})
     }
   })
 }

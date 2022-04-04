@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const addFundsRequest = require('../models/AddFunds')
 const {verifyToken} = require('./verifyToken')
-const { addFundsAdminEmail, addFundsUserEmail } = require('../config')
+const { addFundsAdminEmail, addFundsUserEmail } = require('../services')
 
 const validateAddFundsInfo = (req, res, next) => {
   const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/

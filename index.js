@@ -9,6 +9,8 @@ const userRoute = require('./routes/user')
 const buyCryptoRoute = require('./routes/buyCrypto')
 const sellCryptoRoute = require('./routes/sellCrypto')
 const addFundsRoute = require('./routes/addFunds')
+const verifyId = require('./routes/verifyId')
+const lockFunds = require('./routes/lockFunds')
 const price = require('./models/Price')
 
 // local .env path
@@ -39,6 +41,8 @@ app.use('/api/user', userRoute)
 app.use('/api/buyrequest', buyCryptoRoute)
 app.use('/api/sellrequest', sellCryptoRoute)
 app.use('/api/addFundsRequest', addFundsRoute)
+app.use('/api/verifyId', verifyId)
+app.use('/api/lockFunds', lockFunds)
 
 // root route
 app.get('/', (req,res) => res.status(200).json('Welcome to my api'))

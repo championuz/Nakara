@@ -2,7 +2,7 @@ const router = require('express').Router()
 const User = require('../models/User')
 const CryptoJS = require('crypto-js')
 const jwt = require('jsonwebtoken')
-const { sendVerificationEmail } = require('../config')
+const { sendVerificationEmail } = require('../services')
 
 const validateCredentials = (req, res, next) => {
   const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/

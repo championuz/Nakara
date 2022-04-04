@@ -21,6 +21,11 @@ const UserSchema = new mongoose.Schema(
       enum: [false, true],
       default: false
     },
+    idStatus: {
+      type: String, 
+      enum: ['Unverified', 'Pending', 'Verified'],
+      default: 'Unverified'
+    },
     wallet: {
       type: Object,
       default: {
