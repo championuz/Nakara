@@ -35,8 +35,8 @@ const SellCryptoSchema = new mongoose.Schema(
       required: true
     }
   }, 
+  {timestamps: true},
   {collection: 'sellRequests'},
-  {timestamps: true}
 )
 
 module.exports = mongoose.model('sellRequest', SellCryptoSchema)

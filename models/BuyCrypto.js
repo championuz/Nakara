@@ -28,8 +28,8 @@ const BuyCryptoSchema = new mongoose.Schema(
       default: false
     }
   }, 
+  {timestamps: true},
   {collection: 'buyRequests'},
-  {timestamps: true}
 )
 
 module.exports = mongoose.model('buyRequest', BuyCryptoSchema)

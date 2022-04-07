@@ -31,8 +31,8 @@ const VerifyId = new mongoose.Schema(
       required: true
     }
   }, 
-  {collection: 'verifyId'},
-  {timestamps: true}
+  {timestamps: true},
+  {collection: 'verifyid'},
 )
 
 module.exports = mongoose.model('verifyId', VerifyId)

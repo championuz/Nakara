@@ -5,19 +5,22 @@ const { addFundsAdminEmail, addFundsUserEmail } = require('../services')
 
 const validateAddFundsInfo = (req, res, next) => {
   const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  const {name, email, cardDetails, amount, userId} = req.body
+  const {bankName, email, accountName, amount, img, userId} = req.body
 
-  if(!name || typeof name !== 'string'){
-    return res.status(401).json({status: 'error', message: 'Invalid name'})
+  if(!bankName || typeof bankName !== 'string'){
+    return res.status(401).json({status: 'error', message: 'Invalid bank name'})
   }
   else if(!email.match(emailValidator)){
     return res.status(401).json({status: 'error', message: 'Invalid email'})
   }
-  else if(!cardDetails || typeof cardDetails !== 'string'){
-    return res.status(401).json({status: 'error', message: 'Invalid gift card detail'})
+  else if(!accountName || typeof accountName !== 'string'){
+    return res.status(401).json({status: 'error', message: 'Invalid account name'})
   }
   else if(!amount || typeof amount !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid amount'})
+  }
+  else if(!img || typeof img !== 'string'){
+    return res.status(401).json({status: 'error', message: 'Invalid image'})
   }
   else if(!userId || typeof userId !== 'string'){
     return res.json({status: 'error', message: 'Invalid userId'})
@@ -40,7 +43,7 @@ router.post('/', validateAddFundsInfo, verifyToken, async(req, res) => {
       res.status(500).json({status: 'error', error:'emailSendError'})
     }
   }catch(err){
-    res.status(500).json({status:'error', message:'Failed to send request to redeem gift card'})
+    res.status(500).json({status:'error', message:'Failed send add funds request'})
   }
 })
 

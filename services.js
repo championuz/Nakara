@@ -158,26 +158,28 @@ module.exports.sendSellCryptoUserEmail = ({name, email, currency, amount, bankNa
   return sgMail.send(message)
 }
 
-module.exports.addFundsAdminEmail = ({name, cardDetails, amount}, date) => {
+module.exports.addFundsAdminEmail = ({bankName, accountName, amount, img}, date) => {
   const message = {
     from: {
       name: 'NakaraX',
       email: verifiedEmail
     },
     to: verifiedEmail,
-    subject: 'Redeem Gift Card Request',
+    subject: 'Add funds request',
     text: `
-      Name: ${name}\n
-      Gift card details: ${cardDetails}
+      Bank name: ${bankName}\n
+      Account name: ${accountName}
       Amount: ${amount}\n
+      Image: ${img}\n
       Date: ${date}
     `,
     html: `
       <div>
         <p>
-          <strong>Name:</strong> ${name}<br/>
-          <strong>Gift card details:</strong> ${cardDetails}<br/>
+          <strong>Bank name:</strong> ${bankName}<br/>
+          <strong>Account name:</strong> ${accountName}<br/>
           <strong>Amount:</strong> ${amount}<br/>
+          <strong>Image:</strong> ${img}<br/>
           <strong>Date:</strong> ${date}
         </p>
       </div>
@@ -186,7 +188,7 @@ module.exports.addFundsAdminEmail = ({name, cardDetails, amount}, date) => {
   return sgMail.send(message)
 }
 
-module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}, date) => {
+module.exports.addFundsUserEmail = ({bankName, email, accountName, amount, img}, date) => {
   const message = {
     from: {
       name: 'NakaraX@noreply',
@@ -195,9 +197,10 @@ module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}, date) =>
     to: email,
     subject: 'Redeem Gift Card Request',
     text: `Your request to redeem your gift card is processing
-      Name: ${name}\n
-      Gift card details: ${cardDetails}
+      Bank name: ${bankName}\n
+      Account name: ${accountName}
       Amount: ${amount}\n
+      Image: ${img}\n
       Date: ${date}
     `,
     html: `
@@ -205,10 +208,11 @@ module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}, date) =>
         <h3>Your request to redeem your gift is processing</h3>
         <h4>Here are your details:</h4>
         <p>
-          <strong>Name:</strong> ${name}<br/>
-          <strong>Gift card details:</strong> ${cardDetails}<br/>
-          <strong>Amount:</strong> ${amount}<br/>
-          <strong>Date:</strong> ${date}
+        <strong>Bank name:</strong> ${bankName}<br/>
+        <strong>Account name:</strong> ${accountName}<br/>
+        <strong>Amount:</strong> ${amount}<br/>
+        <strong>Image:</strong> ${img}<br/>
+        <strong>Date:</strong> ${date}
         </p>
       </div>
     `
@@ -256,9 +260,9 @@ module.exports.sendIdVerifyUserEmail = ({name, email, phoneNumber, idNumber, idT
     subject: 'New user verification',
     text: `Your request to sell crypto processing
       Name: ${name}\n
-      Phone number ${phoneNumber}
-      ID number ${idNumber}\n
-      ID type ${idType}\n
+      Phone number: ${phoneNumber}
+      ID number: ${idNumber}\n
+      ID type: ${idType}\n
       Means of Verification image: ${movImage}\n
       Selfie image: ${selfieImage}
     `,
@@ -268,9 +272,9 @@ module.exports.sendIdVerifyUserEmail = ({name, email, phoneNumber, idNumber, idT
         <h4>Here are your details:</h4>
         <p>
           <strong>Name:</strong> ${name}<br/>
-          <strong>Phone number</strong> ${phoneNumber}<br/>
-          <strong>ID number</strong> ${idNumber}<br/>
-          <strong>ID type</strong> ${idType}<br/>
+          <strong>Phone number:</strong> ${phoneNumber}<br/>
+          <strong>ID number:</strong> ${idNumber}<br/>
+          <strong>ID type:</strong> ${idType}<br/>
           <strong>Means of Verification image:</strong> ${movImage}<br/>
           <strong>Selfie image:</strong> ${selfieImage}
         </p>
@@ -314,7 +318,7 @@ module.exports.lockFundsUserEmail = ({name, email, amount, duration}, date) => {
     },
     to: email,
     subject: 'Lock funds',
-    text: `Your request to sell crypto processing
+    text: `Your request to lock crypto processing
       Name: ${name}\n
       Amount ${amount}\n
       Duration ${duration}\n
@@ -326,8 +330,8 @@ module.exports.lockFundsUserEmail = ({name, email, amount, duration}, date) => {
         <h4>Here are your details:</h4>
         <p>
           <strong>Name:</strong> ${name}<br/>
-          <strong>Amount</strong> ${amount}<br/>
-          <strong>Duration</strong> ${duration}<br/>
+          <strong>Amount:</strong> ${amount}<br/>
+          <strong>Duration:</strong> ${duration}<br/>
           <strong>Date:</strong> ${date}
         </p>
       </div>

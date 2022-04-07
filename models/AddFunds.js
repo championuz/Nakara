@@ -6,11 +6,11 @@ const AddFundsSchema = new mongoose.Schema(
       type: String,
       require: true
     },
-    name: {
+    bankName: {
       type: String,
       required: true,
     },
-    cardDetails: {
+    accountName: {
       type: String,
       required: true,
     },
@@ -18,9 +18,13 @@ const AddFundsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    img: {
+      type: String,
+      required: true,
+    }
   }, 
+  {timestamps: true},
   {collection: 'addFundsRequests'},
-  {timestamps: true}
 )
 
 module.exports = mongoose.model('addFundsRequest', AddFundsSchema)
