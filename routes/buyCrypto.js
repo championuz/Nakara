@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const buyRequest = require('../models/BuyCrypto')
+const User = require('../models/User')
 const {verifyToken} = require('./verifyToken')
 const { sendBuyCryptoAdminEmail, sendBuyCryptoUserEmail } = require('../services')
 
@@ -32,7 +33,22 @@ const validateBuyCryptoInfo = (req, res, next) => {
 
 // CREATE
 router.post('/', validateBuyCryptoInfo, verifyToken, async(req, res) => {
+  const {amount, userId} = req.body
+  const numAmount = Number(amount)
   try{
+    const user = await User.findById(userId)
+    const {wallet} = user._doc
+    // check if the requested amout is greater that the available amount 
+    // then send and error response if the greater than and if not greter than minus 
+    // the requested amount the the available amount and upate the database
+    if(numAmount > wallet.availableAmount){
+      return res.status(422).json({status: 'error', error:'insufficientBalance', message: 'You wallet balance is less that the amount requested'})
+    }
+    const currentWalletAmount = wallet.availableAmount - amount
+    await User.updateOne({_id: userId}, {
+      $set: {'wallet.availableAmount' : currentWalletAmount}
+    })
+
     await buyRequest.create(req.body)
     try{
       await sendBuyCryptoAdminEmail(req.body)
