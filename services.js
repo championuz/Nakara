@@ -158,7 +158,7 @@ module.exports.sendSellCryptoUserEmail = ({name, email, currency, amount, bankNa
   return sgMail.send(message)
 }
 
-module.exports.addFundsAdminEmail = ({name, cardDetails, amount}) => {
+module.exports.addFundsAdminEmail = ({name, cardDetails, amount}, date) => {
   const message = {
     from: {
       name: 'NakaraX',
@@ -170,6 +170,7 @@ module.exports.addFundsAdminEmail = ({name, cardDetails, amount}) => {
       Name: ${name}\n
       Gift card details: ${cardDetails}
       Amount: ${amount}\n
+      Date: ${date}
     `,
     html: `
       <div>
@@ -177,6 +178,7 @@ module.exports.addFundsAdminEmail = ({name, cardDetails, amount}) => {
           <strong>Name:</strong> ${name}<br/>
           <strong>Gift card details:</strong> ${cardDetails}<br/>
           <strong>Amount:</strong> ${amount}<br/>
+          <strong>Date:</strong> ${date}
         </p>
       </div>
     `
@@ -184,7 +186,7 @@ module.exports.addFundsAdminEmail = ({name, cardDetails, amount}) => {
   return sgMail.send(message)
 }
 
-module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}) => {
+module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}, date) => {
   const message = {
     from: {
       name: 'NakaraX@noreply',
@@ -196,6 +198,7 @@ module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}) => {
       Name: ${name}\n
       Gift card details: ${cardDetails}
       Amount: ${amount}\n
+      Date: ${date}
     `,
     html: `
       <div>
@@ -205,6 +208,7 @@ module.exports.addFundsUserEmail = ({name, email, cardDetails, amount}) => {
           <strong>Name:</strong> ${name}<br/>
           <strong>Gift card details:</strong> ${cardDetails}<br/>
           <strong>Amount:</strong> ${amount}<br/>
+          <strong>Date:</strong> ${date}
         </p>
       </div>
     `
@@ -276,7 +280,7 @@ module.exports.sendIdVerifyUserEmail = ({name, email, phoneNumber, idNumber, idT
   return sgMail.send(message)
 }
 
-module.exports.lockFundsAdminEmail = ({name, amount, duration}) => {
+module.exports.lockFundsAdminEmail = ({name, amount, duration}, date) => {
   const message = {
     from: {
       name: 'NakaraX',
@@ -286,21 +290,23 @@ module.exports.lockFundsAdminEmail = ({name, amount, duration}) => {
     subject: 'Lock funds request',
     text: `
       Name: ${name}\n
-      Amount ${amount}\n
-      Duration ${duration}\n
+      Amount: ${amount}\n
+      Duration: ${duration}\n
+      Date: ${date}
     `,
     html: `
       <p>
         <strong>Name:</strong> ${name}<br/>
-        <strong>Amount</strong> ${amount}<br/>
-        <strong>Duration</strong> ${duration}<br/>
+        <strong>Amount:</strong> ${amount}<br/>
+        <strong>Duration:</strong> ${duration}<br/>
+        <strong>Date:</strong> ${date}
       </p>
     `
   }
   return sgMail.send(message)
 }
 
-module.exports.lockFundsUserEmail = ({name, email, amount, duration}) => {
+module.exports.lockFundsUserEmail = ({name, email, amount, duration}, date) => {
   const message = {
     from: {
       name: 'NakaraX@noreply',
@@ -312,6 +318,7 @@ module.exports.lockFundsUserEmail = ({name, email, amount, duration}) => {
       Name: ${name}\n
       Amount ${amount}\n
       Duration ${duration}\n
+      Date: ${date}
     `,
     html: `
       <div>
@@ -321,6 +328,7 @@ module.exports.lockFundsUserEmail = ({name, email, amount, duration}) => {
           <strong>Name:</strong> ${name}<br/>
           <strong>Amount</strong> ${amount}<br/>
           <strong>Duration</strong> ${duration}<br/>
+          <strong>Date:</strong> ${date}
         </p>
       </div>
     `

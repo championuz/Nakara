@@ -31,10 +31,11 @@ const validateLockFunds = (req, res, next) => {
 router.post('/', validateLockFunds, verifyToken, async(req, res) => {
 
   try{
-    await LockFund.create(req.body)
+    const createdLockFunds = await LockFund.create(req.body)
+    const date = new Date(createdLockFunds.createdAt).toLocaleDateString()
     try{
-      await lockFundsAdminEmail(req.body)
-      await lockFundsUserEmail(req.body)
+      await lockFundsAdminEmail(req.body, date)
+      await lockFundsUserEmail(req.body, date)
       res.status(200).json({status: 'ok'})
     }catch(err){
       res.status(500).json({status: 'error', error:'emailSendError', message:'Failed to send email'})

@@ -18,9 +18,9 @@ const LockFunds = new mongoose.Schema(
       type: String,
       required: true,
     }
-  }, 
+  },
+  {timestamps: true},
   {collection: 'LockFunds'},
-  {timestamps: true}
 )
 
 module.exports = mongoose.model('lockFunds', LockFunds)

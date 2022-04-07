@@ -30,10 +30,11 @@ const validateAddFundsInfo = (req, res, next) => {
 // CREATE
 router.post('/', validateAddFundsInfo, verifyToken, async(req, res) => {
   try{
-    await addFundsRequest.create(req.body)
+    const addFundsData = await addFundsRequest.create(req.body)
+    const date = new Date(addFundsData.createdAt).toLocaleDateString()
     try{
-      await addFundsAdminEmail(req.body)
-      await addFundsUserEmail(req.body)
+      await addFundsAdminEmail(req.body, date)
+      await addFundsUserEmail(req.body, date)
       res.status(200).json({status: 'ok'})
     }catch(err){
       res.status(500).json({status: 'error', error:'emailSendError'})
