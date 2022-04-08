@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 
 const Price = new mongoose.Schema(
   {
+    name: {
+      type: String,
+    },
     eth: {
       type: Number,
     },

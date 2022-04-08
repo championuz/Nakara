@@ -48,14 +48,48 @@ app.use('/api/lockFunds', lockFunds)
 app.get('/', (req,res) => res.status(200).json('Welcome to my api'))
 
 // get crypto prices
-app.get('/getPrices', async(req, res) => {
+app.get('/getBuyPrice', async(req, res) => {
   try{
-    const prices = await price.findById('624aef8f42d69af97ff3309c')
-    res.status(200).json({status: 'ok', data: prices})
+    const prices = await price.findById('6250bb6fd799441adef15bea')
+    const {_id, ...others} = prices._doc
+    res.status(200).json({data: others})
   }catch{
-    res.status(500).json({message: 'unable to get prices'})
+    res.status(500).json({message: 'unable to get buy price'})
   }
 })
+
+app.get('/getSellPrice', async(req, res) => {
+  try{
+    const prices = await price.findById('6250bb6fd799441adef15beb')
+    const {_id, ...others} = prices._doc
+    res.status(200).json({data: others})
+  }catch{
+    res.status(500).json({message: 'unable to get sell price'})
+  }
+})
+
+// app.get('/createPrice', (req, res) => {
+//   const price1 = price.create({
+//     name: 'buy price',
+//     bnb: 577,
+//     btc: 587,
+//     busd: 577,
+//     doge: 577,
+//     eth: 577,
+//     usdt: 577,
+//   })
+
+//   const price2 = price.create({
+//     name: 'sell price',
+//     bnb: 577,
+//     btc: 587,
+//     busd: 590,
+//     doge: 577,
+//     eth: 575,
+//     usdt: 577,
+//   })
+//   res.status(200).send('done')
+// })
 
 // listener
 app.listen(port, () => {

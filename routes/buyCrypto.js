@@ -38,6 +38,7 @@ router.post('/', validateBuyCryptoInfo, verifyToken, async(req, res) => {
   try{
     const user = await User.findById(userId)
     const {wallet} = user._doc
+    
     // check if the requested amout is greater that the available amount 
     // then send and error response if the greater than and if not greter than minus 
     // the requested amount the the available amount and upate the database
