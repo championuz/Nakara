@@ -1,12 +1,12 @@
 const router = require('express').Router()
 const verifyId = require('../models/VerifyId')
-const {verifyToken} = require('./verifyToken')
+const {verifyTokenAndAuthorization} = require('./verifyToken')
 const User = require('../models/User')
 const { sendIdVerifyAdminEmail, sendIdVerifyUserEmail } = require('../services')
 
 const validateIdInfo = (req, res, next) => {
   const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  const {name,email, phoneNumber, idNumber, idType, selfieImage, movImage, userId} = req.body
+  const {name,email, phoneNumber, idNumber, idType, selfieImage, movImage} = req.body
 
   if(!name || typeof name !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid name'})
@@ -23,9 +23,6 @@ const validateIdInfo = (req, res, next) => {
   else if(!idType || typeof idType !== 'string'){
     return res.json({status: 'error', message: 'Invalid id type'})
   }
-  else if(!userId || typeof userId !== 'string'){
-    return res.json({status: 'error', message: 'Invalid userId'})
-  }
   else if((!selfieImage && !movImage) || typeof (selfieImage && movImage) !== 'string'){
     return res.json({status: 'error', message: 'Image is required'})
   }
@@ -35,19 +32,18 @@ const validateIdInfo = (req, res, next) => {
 }
 
 // CREATE
-router.post('/', validateIdInfo, verifyToken, async(req, res) => {
-  const {userId} = req.body
+router.post('/:id', validateIdInfo, verifyTokenAndAuthorization, async(req, res) => {
   let userDoc = {}
 
   try{
     await verifyId.create(req.body)
-    const user = await User.findById(userId)
+    const user = await User.findById(req.params.id)
     if(!user) return res.status(404).json({status: 'error', message: 'User not found'})
 
     // Modify the id status of the user if he/she is unverfied
     const {idStatus} = user._doc
     if(idStatus === 'Unverified'){
-      userDoc = await User.findOneAndUpdate({_id: userId}, {idStatus: 'Pending'}, {
+      userDoc = await User.findOneAndUpdate({_id: req.params.id}, {idStatus: 'Pending'}, {
         new: true
       })
     }else{

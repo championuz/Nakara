@@ -5,7 +5,7 @@ const LockFund = require('../models/LockFund')
 
 const validateLockFunds = (req, res, next) => {
   const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  const {name, email, amount, duration, userId} = req.body
+  const {name, email, amount, duration} = req.body
 
   if(!name || typeof name !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid name'})
@@ -18,9 +18,6 @@ const validateLockFunds = (req, res, next) => {
   }
   else if(!duration || typeof duration !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid duration'})
-  }
-  else if(!userId || typeof userId !== 'string'){
-    return res.json({status: 'error', message: 'Invalid userId'})
   }
   else{
     next()

@@ -46,14 +46,16 @@ module.exports.sendBuyCryptoAdminEmail = ({name, currency, amount, walletAddress
     text: `
       Name: ${name}\n
       currency: ${currency}
-      Amount: ${amount}\n
+      Currency Amount: ${amount.currencyAmount}\n
+      Naira: ${amount.nairaAmount}\n
       Wallet Address: ${walletAddress}\n
     `,
     html: `
       <p>
         <strong>Name:</strong> ${name}<br/>
         <strong>Currency:</strong> ${currency}<br/>
-        <strong>Amount:</strong> ${amount}<br/>
+        <strong>Currency amount:</strong> ${amount.currencyAmount}<br/>
+        <strong>Naira:</strong> ${amount.nairaAmount}<br/>
         <strong>Wallet address:</strong> ${walletAddress}
       </p>
     `
@@ -71,7 +73,8 @@ module.exports.sendBuyCryptoUserEmail = ({name, email, currency, amount, walletA
     subject: 'Buy Crypto Request',
     text: `Your request is processing\n
       Name: ${name}\n
-      Amount: ${amount}\n
+      Currency amount: ${amount.currencyAmount}\n
+      Naira: ${amount.nairaAmount}\n
       Wallet Address: ${walletAddress}\n
     `,
     html: `
@@ -81,7 +84,8 @@ module.exports.sendBuyCryptoUserEmail = ({name, email, currency, amount, walletA
         <p>
           <strong>Name:</strong> ${name}<br/>
           <strong>Currency:</strong> ${currency}<br/>
-          <strong>Amount:</strong> ${amount}<br/>
+          <strong>Currency amount:</strong> ${amount.currencyAmount}<br/>
+          <strong>Naira:</strong> ${amount.nairaAmount}<br/>
           <strong>Wallet address:</strong> ${walletAddress}
         </p>
       <div>
@@ -101,7 +105,8 @@ module.exports.sendSellCryptoAdminEmail = ({name, currency, amount, bankName, ac
     text: `
       Name: ${name}\n
       currency: ${currency}
-      Amount: ${amount}\n
+      Currency amount: ${amount.currencyAmount}\n
+      Naira: ${amount.nairaAmount}\n
       Bank name: ${bankName}\n
       Account name: ${accountName}
       Account number: ${accountNumber}\n
@@ -111,7 +116,8 @@ module.exports.sendSellCryptoAdminEmail = ({name, currency, amount, bankName, ac
       <p>
         <strong>Name:</strong> ${name}<br/>
         <strong>Currency:</strong> ${currency}<br/>
-        <strong>Amount:</strong> ${amount}<br/>
+        <strong>Currency amount:</strong> ${amount.currencyAmount}<br/>
+        <strong>Naira:</strong> ${amount.nairaAmount}<br/>
         <strong>Bank name:</strong> ${bankName}<br/>
         <strong>Account name:</strong> ${accountName}<br/>
         <strong>Account number:</strong> ${accountNumber}<br/>
@@ -133,7 +139,8 @@ module.exports.sendSellCryptoUserEmail = ({name, email, currency, amount, bankNa
     text: `Your request to sell crypto processing
       Name: ${name}\n
       currency: ${currency}
-      Amount: ${amount}\n
+      Currency amount: ${amount.currencyAmount}\n
+      Naira: ${amount.nairaAmount}\n
       Bank name: ${bankName}\n
       Account name: ${accountName}
       Account number: ${accountNumber}\n
@@ -146,7 +153,8 @@ module.exports.sendSellCryptoUserEmail = ({name, email, currency, amount, bankNa
         <p>
           <strong>Name:</strong> ${name}<br/>
           <strong>Currency:</strong> ${currency}<br/>
-          <strong>Amount:</strong> ${amount}<br/>
+          <strong>Currency amount:</strong> ${amount.currencyAmount}<br/>
+          <strong>Naira:</strong> ${amount.nairaAmount}<br/>
           <strong>Bank name:</strong> ${bankName}<br/>
           <strong>Account name:</strong> ${accountName}<br/>
           <strong>Account number:</strong> ${accountNumber}<br/>

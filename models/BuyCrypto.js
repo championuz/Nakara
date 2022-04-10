@@ -15,8 +15,12 @@ const BuyCryptoSchema = new mongoose.Schema(
       required: true,
     },
     amount: {
-      type: String,
+      type: Object,
       required: true,
+      default: {
+        currencyAmount: '',
+        nairaAmount: ''
+      }
     },
     walletAddress: {
       type: String,

@@ -15,8 +15,12 @@ const SellCryptoSchema = new mongoose.Schema(
       required: true,
     },
     amount: {
-      type: String,
+      type: Object,
       required: true,
+      default: {
+        currencyAmount: '',
+        nairaAmount: ''
+      }
     },
     bankName: {
       type: String,

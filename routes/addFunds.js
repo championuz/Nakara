@@ -5,7 +5,7 @@ const { addFundsAdminEmail, addFundsUserEmail } = require('../services')
 
 const validateAddFundsInfo = (req, res, next) => {
   const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  const {bankName, email, accountName, amount, img, userId} = req.body
+  const {bankName, email, accountName, amount, img} = req.body
 
   if(!bankName || typeof bankName !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid bank name'})
@@ -21,9 +21,6 @@ const validateAddFundsInfo = (req, res, next) => {
   }
   else if(!img || typeof img !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid image'})
-  }
-  else if(!userId || typeof userId !== 'string'){
-    return res.json({status: 'error', message: 'Invalid userId'})
   }
   else{
     next()

@@ -30,7 +30,8 @@ const UserSchema = new mongoose.Schema(
       type: Object,
       default: {
         availableAmount: 0,
-        lockedAmount: 0
+        lockedAmount: 0,
+        interestTime: 0
       }
     },
     isAdmin: {

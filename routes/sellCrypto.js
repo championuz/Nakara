@@ -5,7 +5,7 @@ const { sendSellCryptoAdminEmail, sendSellCryptoUserEmail } = require('../servic
 
 const validateSellCryptoInfo = (req, res, next) => {
   const emailValidator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-  const {name, email, currency, amount, bankName, accountName, accountNumber, img, userId} = req.body
+  const {name, email, currency, amount, bankName, accountName, accountNumber, img} = req.body
 
   if(!name || typeof name !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid name'})
@@ -16,14 +16,14 @@ const validateSellCryptoInfo = (req, res, next) => {
   else if(!currency || typeof currency !== 'string'){
     return res.status(401).json({status: 'error', message: 'Invalid currency'})
   }
-  else if(!amount || typeof amount !== 'string'){
-    return res.status(401).json({status: 'error', message: 'Invalid amount'})
+  else if(!amount || typeof amount !== 'object'){
+    return res.status(401).json({status: 'error', message: 'Invalid amount. Should be an object'})
+  }
+  else if(!amount.currencyAmount || !amount.nairaAmount){
+    return res.status(401).json({status: 'error', message:'Dollar and Naira amount most be supplied'})
   }
   else if(!bankName || typeof bankName !== 'string'){
     return res.json({status: 'error', message: 'Invalid bank name'})
-  }
-  else if(!userId || typeof userId !== 'string'){
-    return res.json({status: 'error', message: 'Invalid userId'})
   }
   else if(!accountName || typeof accountName !== 'string'){
     return res.json({status: 'error', message: 'Invalid account name'})
